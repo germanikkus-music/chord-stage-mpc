@@ -134,6 +134,16 @@ struct JsonParser
 // ---------------------------------------------------------------------------
 // Chord names: "F#m7/E" -> root F#, quality m7 (the bass note comes from the voicing)
 // ---------------------------------------------------------------------------
+// MPC sometimes writes the real sharp and flat signs (UTF-8 "♯" / "♭"): turn them into # and b
+inline std::string asciiAccidentals(std::string s)
+{
+    static const char* const sharp = "\xE2\x99\xAF";
+    static const char* const flat = "\xE2\x99\xAD";
+    for (size_t at; (at = s.find(sharp)) != std::string::npos;) s.replace(at, 3, "#");
+    for (size_t at; (at = s.find(flat)) != std::string::npos;) s.replace(at, 3, "b");
+    return s;
+}
+
 inline int letterPc(char c) { static const int pc[7] = {9, 11, 0, 2, 4, 5, 7}; return (c >= 'A' && c <= 'G') ? pc[c - 'A'] : -1; }
 
 // Root pitch class and length of the root part ("C#" -> 1, 2), or -1
@@ -179,7 +189,7 @@ inline bool loadProgFile(const std::string& path, const std::string& title, Prog
 
     out.title = title;
     out.keyRoot = 0;
-    if (const Json* r = pr->get("rootNote")) if (r->type == Json::Str) { size_t l; const int pc = parseRoot(r->str, l); if (pc >= 0) out.keyRoot = pc; }
+    if (const Json* r = pr->get("rootNote")) if (r->type == Json::Str) { size_t l; const int pc = parseRoot(asciiAccidentals(r->str), l); if (pc >= 0) out.keyRoot = pc; }
 
     // Scale: MPC names -> ours. "Chromatic" (or unknown): major or minor, whichever fits more chord notes
     std::string sc; if (const Json* s = pr->get("scale")) if (s->type == Json::Str) sc = s->str;
@@ -201,7 +211,7 @@ inline bool loadProgFile(const std::string& path, const std::string& title, Prog
         if (fc.count == 0) continue;
         std::sort(fc.notes, fc.notes + fc.count);
         std::string name; if (const Json* nm = c.get("name")) if (nm->type == Json::Str) name = nm->str;
-        std::string clean; for (char ch : name) if (ch != ' ') clean += ch;
+        std::string clean; for (char ch : asciiAccidentals(name)) if (ch != ' ') clean += ch;
         size_t rl = 0; int rootPc = parseRoot(clean, rl);
         if (rootPc < 0) { rootPc = mod12(fc.notes[0]); clean.clear(); rl = 0; }
         fc.chord.rootPc = (int8_t)rootPc;

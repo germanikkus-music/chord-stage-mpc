@@ -217,7 +217,7 @@ public:
         if (title.empty()) return;
         int found = 0;
         for (size_t i = 0; i < files_.size(); ++i) if (files_[i].title == title) found = (int)i + 1;
-        set(kFile, (float)found);   // a file that is gone falls back to None
+        if (found != (int)std::lround(get(kFile))) set(kFile, (float)found);   // a file that is gone falls back to None
     }
 
     void process(mpc::ProcessContext& ctx) override

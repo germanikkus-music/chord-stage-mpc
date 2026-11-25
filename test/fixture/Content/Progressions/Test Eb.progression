@@ -1,7 +1,7 @@
 {
   "progression": {
     "name": "Test Eb",
-    "rootNote": "D#",
+    "rootNote": "D♯",
     "scale": "Chromatic",
     "chords": [
       { "name": "D#maj7", "role": "Root", "notes": [39, 55, 58, 62] },
