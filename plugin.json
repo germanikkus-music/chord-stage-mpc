@@ -1,0 +1,17 @@
+{
+  "name": "Chord Stage",
+  "manufacturer": "Germanikkus",
+  "version": "1.0.0",
+  "format": "vst2",
+  "kind": "instrument",
+  "uid": "Gwz6",
+  "numInputs": 0,
+  "numOutputs": 2,
+  "category": "Synth",
+  "file32": "VST/chord-stage-arm32.so",
+  "file64": "VST/chord-stage-arm64.so",
+  "description": "Chord helper instrument: one key = one chord in your key and scale, Sloppy and Chord lock modes that follow preset progressions, smooth voice leading, tempo-synced strum and arp, a bass zone and built-in E.Piano, Pad, Strings and Organ sounds.",
+  "author": "Germanikkus",
+  "url": "",
+  "license": "MIT"
+}
