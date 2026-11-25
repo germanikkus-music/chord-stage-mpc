@@ -132,7 +132,7 @@ static std::set<int> detect(int64_t start, int N, float rel = 0.3f)
     if (mx < 1e-3 * N * 0.01) return out;   // silence
     // a note counts when it is a local peak (short windows smear a tone into its neighbours)
     for (int note = 28; note <= 100; ++note)
-        if (amp[(size_t)note] > rel * mx && amp[(size_t)note] >= amp[(size_t)note - 1] && amp[(size_t)note] >= amp[(size_t)note + 1]) out.insert(note);
+        if (amp[(size_t)note] > rel * mx && (N >= 32768 || (amp[(size_t)note] >= amp[(size_t)note - 1] && amp[(size_t)note] >= amp[(size_t)note + 1]))) out.insert(note);
     return out;
 }
 static std::string fmt(const std::set<int>& s)
@@ -273,6 +273,36 @@ int main(int argc, char** argv)
             expectNotes(lbl, detect(gridStart + (int64_t)((0.25 * (k + 1) + 0.03) * kSR), 4096, 0.45f), {48, seq[k]});
         }
     }
+
+    std::printf("H. Progression files from Content/Progressions (exact MPC voicings)\n");
+    p.setText("Arp", "Off"); p.setText("Progression", "None"); p.setText("Mode", "Sloppy");
+    p.setText("Key", "C"); p.setText("Scale", "Major");
+    expectText("Prog File slot 1", (p.e->setParameter(p.e, p.idx("Prog File"), 1.0f / 64.0f), p.display("Prog File")), "Gymnopedie No 1");
+    p.setText("Prog File", "Test Eb");
+    render(p, 0.05);
+    expectText("picking the file sets Key", p.display("Key"), "Eb");
+    expectText("and Scale (Chromatic -> best fit)", p.display("Scale"), "Major");
+    expectText("before playing", p.display("Now / Next"), "- > Ebmaj7");
+    chord(p, 63, {39, 55, 58, 62}, "Eb4 -> D#maj7 as written", "Ebmaj7 > Cmin9");
+    chord(p, 61, {36, 58, 62, 63, 67}, "C#4 (snaps to C) -> Cmin9", "Cmin9 > Ab/C");
+    chord(p, 56, {36, 56, 60, 63}, "Ab3 -> G#/C as Ab/C", "Ab/C > Bb7");
+    expectText("Step", p.display("Step"), "4/4");
+    p.setText("Mode", "Lock");
+    chord(p, 63, {}, "Lock: Eb while Bb7 is next -> silent");
+    chord(p, 58, {46, 56, 58, 62, 65}, "Lock: Bb3 -> A#7 as Bb7", "Bb7 > Ebmaj7");
+    {
+        // A saved project remembers the file by name
+        void* chunk = nullptr; const VstIntPtr n = p.d(effGetChunk, 0, 0, &chunk);
+        std::vector<char> saved((char*)chunk, (char*)chunk + n);
+        p.setText("Prog File", "None");
+        p.d(effSetChunk, 0, (VstIntPtr)saved.size(), saved.data());
+        expectText("project reload keeps the file", p.display("Prog File"), "Test Eb");
+        render(p, 0.05);
+    }
+    p.setText("Prog File", "Gymnopedie No 1");
+    render(p, 0.05);
+    expectText("Gymnopedie sets Key", p.display("Key"), "D");
+    chord(p, 67, {43, 59, 62, 66}, "Gymnopedie G3 -> Gmaj7 as written", "Gmaj7 > Dmaj7");
 
     p.d(effStopProcess); p.d(effMainsChanged, 0, 0); p.d(effClose);
 

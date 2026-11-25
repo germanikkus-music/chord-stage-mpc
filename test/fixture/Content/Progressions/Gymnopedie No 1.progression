@@ -1,0 +1,833 @@
+{
+  "progression": {
+    "name": "Gymnopédie No. 1 (Satie)",
+    "rootNote": "D",
+    "scale": "Major",
+    "recordingOctave": 1,
+    "chords": [
+      {
+        "name": "Gmaj7",
+        "role": "Root",
+        "notes": [
+          43,
+          59,
+          62,
+          66
+        ],
+        "section": "Intro"
+      },
+      {
+        "name": "Dmaj7",
+        "role": "Normal",
+        "notes": [
+          38,
+          57,
+          61,
+          66
+        ]
+      },
+      {
+        "name": "Gmaj7",
+        "role": "Normal",
+        "notes": [
+          43,
+          59,
+          62,
+          66
+        ]
+      },
+      {
+        "name": "Dmaj7",
+        "role": "Normal",
+        "notes": [
+          38,
+          57,
+          61,
+          66
+        ]
+      },
+      {
+        "name": "Gmaj7",
+        "role": "Normal",
+        "notes": [
+          43,
+          59,
+          62,
+          66
+        ],
+        "section": "Theme"
+      },
+      {
+        "name": "Dmaj7",
+        "role": "Normal",
+        "notes": [
+          38,
+          57,
+          61,
+          66
+        ]
+      },
+      {
+        "name": "Gmaj7",
+        "role": "Normal",
+        "notes": [
+          43,
+          59,
+          62,
+          66
+        ]
+      },
+      {
+        "name": "Dmaj7",
+        "role": "Normal",
+        "notes": [
+          38,
+          57,
+          61,
+          66
+        ]
+      },
+      {
+        "name": "Gmaj7",
+        "role": "Normal",
+        "notes": [
+          43,
+          59,
+          62,
+          66
+        ]
+      },
+      {
+        "name": "Dmaj7",
+        "role": "Normal",
+        "notes": [
+          38,
+          57,
+          61,
+          66
+        ]
+      },
+      {
+        "name": "Gmaj7",
+        "role": "Normal",
+        "notes": [
+          43,
+          59,
+          62,
+          66
+        ]
+      },
+      {
+        "name": "Dmaj7",
+        "role": "Normal",
+        "notes": [
+          38,
+          57,
+          61,
+          66
+        ]
+      },
+      {
+        "name": "Gmaj7",
+        "role": "Normal",
+        "notes": [
+          43,
+          59,
+          62,
+          66
+        ]
+      },
+      {
+        "name": "Dmaj7",
+        "role": "Normal",
+        "notes": [
+          38,
+          57,
+          61,
+          66
+        ]
+      },
+      {
+        "name": "Gmaj7",
+        "role": "Normal",
+        "notes": [
+          43,
+          59,
+          62,
+          66
+        ]
+      },
+      {
+        "name": "Dmaj7",
+        "role": "Normal",
+        "notes": [
+          38,
+          57,
+          61,
+          66
+        ]
+      },
+      {
+        "name": "F#m",
+        "role": "Normal",
+        "notes": [
+          42,
+          57,
+          61,
+          66
+        ],
+        "section": "Middle"
+      },
+      {
+        "name": "Bm",
+        "role": "Normal",
+        "notes": [
+          35,
+          59,
+          62,
+          66
+        ]
+      },
+      {
+        "name": "Em",
+        "role": "Normal",
+        "notes": [
+          40,
+          55,
+          59
+        ]
+      },
+      {
+        "name": "Em7",
+        "role": "Normal",
+        "notes": [
+          40,
+          59,
+          62,
+          67
+        ]
+      },
+      {
+        "name": "Dm",
+        "role": "Normal",
+        "notes": [
+          38,
+          53,
+          57,
+          62
+        ]
+      },
+      {
+        "name": "Am",
+        "role": "Normal",
+        "notes": [
+          33,
+          57,
+          60,
+          64
+        ]
+      },
+      {
+        "name": "Em/D",
+        "role": "Normal",
+        "notes": [
+          38,
+          55,
+          59,
+          64
+        ]
+      },
+      {
+        "name": "Em7/D",
+        "role": "Normal",
+        "notes": [
+          38,
+          50,
+          55,
+          59,
+          64
+        ]
+      },
+      {
+        "name": "Am/D",
+        "role": "Normal",
+        "notes": [
+          38,
+          48,
+          52,
+          57,
+          62
+        ]
+      },
+      {
+        "name": "D7",
+        "role": "Normal",
+        "notes": [
+          38,
+          48,
+          54,
+          57,
+          62
+        ]
+      },
+      {
+        "name": "Dm7",
+        "role": "Normal",
+        "notes": [
+          38,
+          57,
+          60,
+          65
+        ]
+      },
+      {
+        "name": "Am/D",
+        "role": "Normal",
+        "notes": [
+          38,
+          57,
+          60,
+          64
+        ]
+      },
+      {
+        "name": "Em7/D",
+        "role": "Normal",
+        "notes": [
+          38,
+          50,
+          55,
+          59,
+          64
+        ]
+      },
+      {
+        "name": "Am/D",
+        "role": "Normal",
+        "notes": [
+          38,
+          48,
+          52,
+          57,
+          62
+        ]
+      },
+      {
+        "name": "D7",
+        "role": "Normal",
+        "notes": [
+          38,
+          48,
+          54,
+          57,
+          62
+        ]
+      },
+      {
+        "name": "Em",
+        "role": "Normal",
+        "notes": [
+          40,
+          59,
+          64,
+          67
+        ],
+        "section": "Ending 1"
+      },
+      {
+        "name": "F#m",
+        "role": "Normal",
+        "notes": [
+          42,
+          57,
+          61,
+          66
+        ]
+      },
+      {
+        "name": "Bm",
+        "role": "Normal",
+        "notes": [
+          35,
+          59,
+          62,
+          66
+        ]
+      },
+      {
+        "name": "A/E",
+        "role": "Normal",
+        "notes": [
+          40,
+          61,
+          64,
+          69
+        ]
+      },
+      {
+        "name": "F#m7/E",
+        "role": "Normal",
+        "notes": [
+          40,
+          57,
+          61,
+          66,
+          69
+        ]
+      },
+      {
+        "name": "Em7",
+        "role": "Normal",
+        "notes": [
+          40,
+          47,
+          52,
+          59,
+          62,
+          67
+        ]
+      },
+      {
+        "name": "Am7",
+        "role": "Normal",
+        "notes": [
+          45,
+          55,
+          60,
+          64,
+          69,
+          72
+        ]
+      },
+      {
+        "name": "D",
+        "role": "Normal",
+        "notes": [
+          38,
+          45,
+          50,
+          62,
+          66,
+          69,
+          74
+        ]
+      },
+      {
+        "name": "Gmaj7",
+        "role": "Normal",
+        "notes": [
+          43,
+          59,
+          62,
+          66
+        ],
+        "section": "Again"
+      },
+      {
+        "name": "Dmaj7",
+        "role": "Normal",
+        "notes": [
+          38,
+          57,
+          61,
+          66
+        ]
+      },
+      {
+        "name": "Gmaj7",
+        "role": "Normal",
+        "notes": [
+          43,
+          59,
+          62,
+          66
+        ]
+      },
+      {
+        "name": "Dmaj7",
+        "role": "Normal",
+        "notes": [
+          38,
+          57,
+          61,
+          66
+        ]
+      },
+      {
+        "name": "Gmaj7",
+        "role": "Normal",
+        "notes": [
+          43,
+          59,
+          62,
+          66
+        ],
+        "section": "Theme"
+      },
+      {
+        "name": "Dmaj7",
+        "role": "Normal",
+        "notes": [
+          38,
+          57,
+          61,
+          66
+        ]
+      },
+      {
+        "name": "Gmaj7",
+        "role": "Normal",
+        "notes": [
+          43,
+          59,
+          62,
+          66
+        ]
+      },
+      {
+        "name": "Dmaj7",
+        "role": "Normal",
+        "notes": [
+          38,
+          57,
+          61,
+          66
+        ]
+      },
+      {
+        "name": "Gmaj7",
+        "role": "Normal",
+        "notes": [
+          43,
+          59,
+          62,
+          66
+        ]
+      },
+      {
+        "name": "Dmaj7",
+        "role": "Normal",
+        "notes": [
+          38,
+          57,
+          61,
+          66
+        ]
+      },
+      {
+        "name": "Gmaj7",
+        "role": "Normal",
+        "notes": [
+          43,
+          59,
+          62,
+          66
+        ]
+      },
+      {
+        "name": "Dmaj7",
+        "role": "Normal",
+        "notes": [
+          38,
+          57,
+          61,
+          66
+        ]
+      },
+      {
+        "name": "Gmaj7",
+        "role": "Normal",
+        "notes": [
+          43,
+          59,
+          62,
+          66
+        ]
+      },
+      {
+        "name": "Dmaj7",
+        "role": "Normal",
+        "notes": [
+          38,
+          57,
+          61,
+          66
+        ]
+      },
+      {
+        "name": "Gmaj7",
+        "role": "Normal",
+        "notes": [
+          43,
+          59,
+          62,
+          66
+        ]
+      },
+      {
+        "name": "Dmaj7",
+        "role": "Normal",
+        "notes": [
+          38,
+          57,
+          61,
+          66
+        ]
+      },
+      {
+        "name": "F#m",
+        "role": "Normal",
+        "notes": [
+          42,
+          57,
+          61,
+          66
+        ],
+        "section": "Middle"
+      },
+      {
+        "name": "Bm",
+        "role": "Normal",
+        "notes": [
+          35,
+          59,
+          62,
+          66
+        ]
+      },
+      {
+        "name": "Em",
+        "role": "Normal",
+        "notes": [
+          40,
+          55,
+          59
+        ]
+      },
+      {
+        "name": "Em7",
+        "role": "Normal",
+        "notes": [
+          40,
+          59,
+          62,
+          67
+        ]
+      },
+      {
+        "name": "Dm",
+        "role": "Normal",
+        "notes": [
+          38,
+          53,
+          57,
+          62
+        ]
+      },
+      {
+        "name": "Am",
+        "role": "Normal",
+        "notes": [
+          33,
+          57,
+          60,
+          64
+        ]
+      },
+      {
+        "name": "Em/D",
+        "role": "Normal",
+        "notes": [
+          38,
+          55,
+          59,
+          64
+        ]
+      },
+      {
+        "name": "Em7/D",
+        "role": "Normal",
+        "notes": [
+          38,
+          50,
+          55,
+          59,
+          64
+        ]
+      },
+      {
+        "name": "Am/D",
+        "role": "Normal",
+        "notes": [
+          38,
+          48,
+          52,
+          57,
+          62
+        ]
+      },
+      {
+        "name": "D7",
+        "role": "Normal",
+        "notes": [
+          38,
+          48,
+          54,
+          57,
+          62
+        ]
+      },
+      {
+        "name": "Dm7",
+        "role": "Normal",
+        "notes": [
+          38,
+          57,
+          60,
+          65
+        ]
+      },
+      {
+        "name": "Am/D",
+        "role": "Normal",
+        "notes": [
+          38,
+          57,
+          60,
+          64
+        ]
+      },
+      {
+        "name": "Em7/D",
+        "role": "Normal",
+        "notes": [
+          38,
+          50,
+          55,
+          59,
+          64
+        ]
+      },
+      {
+        "name": "Am/D",
+        "role": "Normal",
+        "notes": [
+          38,
+          48,
+          52,
+          57,
+          62
+        ]
+      },
+      {
+        "name": "D7",
+        "role": "Normal",
+        "notes": [
+          38,
+          48,
+          54,
+          57,
+          62
+        ]
+      },
+      {
+        "name": "Em",
+        "role": "Normal",
+        "notes": [
+          40,
+          59,
+          64,
+          67
+        ],
+        "section": "Final ending"
+      },
+      {
+        "name": "Dm/E",
+        "role": "Normal",
+        "notes": [
+          40,
+          57,
+          62,
+          65,
+          69
+        ]
+      },
+      {
+        "name": "F/E",
+        "role": "Normal",
+        "notes": [
+          40,
+          57,
+          60,
+          65
+        ]
+      },
+      {
+        "name": "Am/E",
+        "role": "Normal",
+        "notes": [
+          40,
+          60,
+          64,
+          69
+        ]
+      },
+      {
+        "name": "F/E",
+        "role": "Normal",
+        "notes": [
+          40,
+          57,
+          60,
+          65,
+          69
+        ]
+      },
+      {
+        "name": "Em7",
+        "role": "Normal",
+        "notes": [
+          40,
+          47,
+          52,
+          59,
+          62,
+          67
+        ]
+      },
+      {
+        "name": "Am7",
+        "role": "Normal",
+        "notes": [
+          45,
+          55,
+          60,
+          64,
+          69,
+          72
+        ]
+      },
+      {
+        "name": "Dm",
+        "role": "Normal",
+        "notes": [
+          38,
+          45,
+          50,
+          62,
+          65,
+          69,
+          74
+        ]
+      }
+    ],
+    "chordStage": {
+      "bpm": 70,
+      "beatStyle": "slow34",
+      "beatAuto": true,
+      "beatFills": false,
+      "sound": "piano",
+      "sevenths": true
+    }
+  }
+}

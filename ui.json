@@ -1,58 +1,184 @@
 {
   "kit": "violet",
   "pages": [
-    { "name": "PLAY",
+    {
+      "name": "PLAY",
       "controls": [
-        { "param": "Now / Next", "widget": "slider" },
-        { "param": "Step", "widget": "slider" },
-        { "param": "Progression", "widget": "slider", "overlay": "menu" },
-        { "param": "Mode", "widget": "switch" },
-
-        { "param": "Key", "widget": "slider", "overlay": "menu" },
-        { "param": "Scale", "widget": "slider", "overlay": "menu" },
-        { "param": "7ths", "widget": "switch" },
-        { "param": "Smooth", "widget": "switch" },
-
-        { "param": "Sound", "widget": "switch" },
-        { "param": "Tone", "widget": "knob" },
-        { "param": "Chorus", "widget": "knob" },
-        { "param": "Volume", "widget": "fader" }
-      ] },
-    { "name": "CHORDS",
+        {
+          "param": "Now / Next",
+          "widget": "slider"
+        },
+        {
+          "param": "Step",
+          "widget": "slider"
+        },
+        {
+          "param": "Progression",
+          "widget": "slider",
+          "overlay": "menu"
+        },
+        {
+          "param": "Mode",
+          "widget": "switch"
+        },
+        {
+          "param": "Key",
+          "widget": "slider",
+          "overlay": "menu"
+        },
+        {
+          "param": "Scale",
+          "widget": "slider",
+          "overlay": "menu"
+        },
+        {
+          "param": "7ths",
+          "widget": "switch"
+        },
+        {
+          "param": "Smooth",
+          "widget": "switch"
+        },
+        {
+          "param": "Sound",
+          "widget": "switch"
+        },
+        {
+          "param": "Tone",
+          "widget": "knob"
+        },
+        {
+          "param": "Chorus",
+          "widget": "knob"
+        },
+        {
+          "param": "Volume",
+          "widget": "fader"
+        },
+        {
+          "param": "Prog File",
+          "widget": "slider"
+        },
+        "empty",
+        "empty",
+        "empty"
+      ]
+    },
+    {
+      "name": "CHORDS",
       "controls": [
-        { "param": "Split", "widget": "slider", "overlay": "menu" },
-        { "param": "Upper", "widget": "switch" },
-        { "param": "Root Bass", "widget": "switch" },
-        { "param": "Chord Oct", "widget": "slider" },
-
-        { "param": "Bass Split", "widget": "slider", "overlay": "menu" },
-        { "param": "Bass Style", "widget": "switch" },
-        { "param": "Bass Sound", "widget": "switch" },
-        { "param": "Bass Level", "widget": "fader" }
-      ] },
-    { "name": "FEEL",
+        {
+          "param": "Split",
+          "widget": "slider",
+          "overlay": "menu"
+        },
+        {
+          "param": "Upper",
+          "widget": "switch"
+        },
+        {
+          "param": "Root Bass",
+          "widget": "switch"
+        },
+        {
+          "param": "Chord Oct",
+          "widget": "slider"
+        },
+        {
+          "param": "Bass Split",
+          "widget": "slider",
+          "overlay": "menu"
+        },
+        {
+          "param": "Bass Style",
+          "widget": "switch"
+        },
+        {
+          "param": "Bass Sound",
+          "widget": "switch"
+        },
+        {
+          "param": "Bass Level",
+          "widget": "fader"
+        }
+      ]
+    },
+    {
+      "name": "FEEL",
       "controls": [
-        { "param": "Strum", "widget": "slider", "overlay": "menu" },
-        { "param": "Strum Dir", "widget": "switch" },
-        { "param": "Arp", "widget": "slider", "overlay": "menu" },
-        { "param": "Arp Rate", "widget": "slider", "overlay": "menu" },
-
-        { "param": "Arp Oct", "widget": "slider" },
-        { "param": "Arp Gate", "widget": "fader" },
-        { "param": "Arp Latch", "widget": "switch" },
-        { "param": "Vel Sens", "widget": "fader" }
-      ] },
-    { "name": "SOUND",
+        {
+          "param": "Strum",
+          "widget": "slider",
+          "overlay": "menu"
+        },
+        {
+          "param": "Strum Dir",
+          "widget": "switch"
+        },
+        {
+          "param": "Arp",
+          "widget": "slider",
+          "overlay": "menu"
+        },
+        {
+          "param": "Arp Rate",
+          "widget": "slider",
+          "overlay": "menu"
+        },
+        {
+          "param": "Arp Oct",
+          "widget": "slider"
+        },
+        {
+          "param": "Arp Gate",
+          "widget": "fader"
+        },
+        {
+          "param": "Arp Latch",
+          "widget": "switch"
+        },
+        {
+          "param": "Vel Sens",
+          "widget": "fader"
+        }
+      ]
+    },
+    {
+      "name": "SOUND",
       "controls": [
-        { "param": "Attack", "widget": "fader" },
-        { "param": "Decay", "widget": "fader" },
-        { "param": "Sustain", "widget": "fader" },
-        { "param": "Release", "widget": "fader" },
-
-        { "param": "Sound", "widget": "switch" },
-        { "param": "Tone", "widget": "knob" },
-        { "param": "Chorus", "widget": "knob" },
-        { "param": "Volume", "widget": "fader" }
-      ] }
+        {
+          "param": "Attack",
+          "widget": "fader"
+        },
+        {
+          "param": "Decay",
+          "widget": "fader"
+        },
+        {
+          "param": "Sustain",
+          "widget": "fader"
+        },
+        {
+          "param": "Release",
+          "widget": "fader"
+        },
+        {
+          "param": "Sound",
+          "widget": "switch"
+        },
+        {
+          "param": "Tone",
+          "widget": "knob"
+        },
+        {
+          "param": "Chorus",
+          "widget": "knob"
+        },
+        {
+          "param": "Volume",
+          "widget": "fader"
+        }
+      ]
+    }
   ]
 }

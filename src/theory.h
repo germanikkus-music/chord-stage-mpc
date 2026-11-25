@@ -73,6 +73,7 @@ struct Chord
     int8_t q = qMaj;
     int8_t degree = -1;     // 0..6 inside the key, -1 outside
     uint8_t spell = kSpellKey;
+    int16_t fileRef = -1;   // chord from a .progression file: (file << 8) | step, else -1
     bool valid() const { return rootPc >= 0; }
     // "id" used to match a played chord against a progression step: root + 3rd + 5th
     bool sameAs(const Chord& o) const
@@ -80,10 +81,16 @@ struct Chord
         return rootPc == o.rootPc && kQualities[q].iv[0] == kQualities[o.q].iv[0] && kQualities[q].iv[1] == kQualities[o.q].iv[1];
     }
     // Packed into 16 bits so the UI thread can read it from an atomic.
-    uint32_t pack() const { return valid() ? (1u << 15) | ((uint32_t)rootPc) | ((uint32_t)q << 4) | ((uint32_t)spell << 9) : 0u; }
+    uint32_t pack() const
+    {
+        if (!valid()) return 0u;
+        if (fileRef >= 0) return (1u << 15) | (1u << 14) | (uint32_t)fileRef;
+        return (1u << 15) | ((uint32_t)rootPc) | ((uint32_t)q << 4) | ((uint32_t)spell << 9);
+    }
     static Chord unpack(uint32_t v)
     {
         Chord c; if (!(v & (1u << 15))) return c;
+        if (v & (1u << 14)) { c.rootPc = 0; c.fileRef = (int16_t)(v & 0x3FFF); return c; }
         c.rootPc = (int8_t)(v & 15); c.q = (int8_t)((v >> 4) & 31); c.spell = (uint8_t)((v >> 9) & 3); return c;
     }
 };
@@ -264,7 +271,7 @@ static const int kNextDegree[7] = {3, 4, 5, 4, 0, 3, 0};
 // ---------------------------------------------------------------------------
 // Voicing
 // ---------------------------------------------------------------------------
-constexpr int kMaxChordNotes = 6;
+constexpr int kMaxChordNotes = 10;
 struct Notes { int n[kMaxChordNotes]; int count = 0; void push(int v) { if (count < kMaxChordNotes) n[count++] = v; } };
 
 // Pitch classes of a chord, root first, no duplicates

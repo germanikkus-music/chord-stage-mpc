@@ -10,6 +10,7 @@ The MPC version of [Chord Stage](https://germanikkus-music.github.io/chord-stage
 - **Bass zone** on the far left (single notes, octaves or root + 5th), kept in key.
 - **Sounds:** E.Piano, Pad, Strings and Organ, plus a synth bass for the bass zone and a light chorus.
 - **Now / Next** on the PLAY page shows the chord you played and the one to play next, e.g. `Am > G`.
+- **Your own MPC progressions.** Drop `.progression` files into the plugin's `Content/Progressions` folder and pick one with **Prog File**. Its chords play with the file's exact notes.
 
 ## Install
 
@@ -26,7 +27,7 @@ The plugin is an instrument, so it plays its own sound. Plugins on the MPC can't
 
 | Page | Top row | Next rows |
 |---|---|---|
-| **PLAY** | Now / Next · Step · Progression · Mode | Key · Scale · 7ths · Smooth / Sound · Tone · Chorus · Volume |
+| **PLAY** | Now / Next · Step · Progression · Mode | Key · Scale · 7ths · Smooth / Sound · Tone · Chorus · Volume / Prog File |
 | **CHORDS** | Split · Upper · Root Bass · Chord Oct | Bass Split · Bass Style · Bass Sound · Bass Level |
 | **FEEL** | Strum · Strum Dir · Arp · Arp Rate | Arp Oct · Arp Gate · Arp Latch · Vel Sens |
 | **SOUND** | Attack · Decay · Sustain · Release | Sound · Tone · Chorus · Volume |
@@ -40,6 +41,19 @@ The plugin is an instrument, so it plays its own sound. Plugins on the MPC can't
 - **Arp** plays the held chord one note at a time at **Arp Rate**. A low root holds underneath as a drone. **Latch** keeps the arp going after you let go, until the next chord.
 - Sustain pedal (CC64), pitch bend (±2 semitones) and All Notes Off work.
 - Note names follow the web app: MIDI 60 = **C4** (the MPC itself may label it C3).
+
+### MPC progression files
+
+Put `.progression` files (the MPC's own chord progression files, the same ones the web app imports) in this folder on the card. Make the last two folders yourself:
+
+`VST2 Plugins/Germanikkus - VST - Chord Stage/Content/Progressions/`
+
+- **Prog File** (bottom row of PLAY) picks one. It shows the file name, sorted A–Z, and **None** goes back to the Progression presets. While a file is picked, it replaces the Progression preset.
+- Picking a file sets **Key** and **Scale** to the file's. A file with no scale ("Chromatic") gets Major or Minor, whichever fits more of its notes.
+- Each chord plays the **exact notes in the file**: Smooth, Root Bass and 7ths don't change them, but Chord Oct, Strum and Arp still apply. Sloppy and Lock find the chord by the root in its name, so `G#/C` plays from an Ab key. Names are respelled for the key, so in Eb, `D#maj7` shows as `Ebmaj7`.
+- Files are read when the plugin loads. After adding or removing files, reload the plugin (or the project) to see them.
+- A project remembers the file by name. If you remove that file, the project falls back to None.
+- Up to 64 files of up to 256 chords each. Step jumps only reach the first 32 chords; longer files still play all the way through and show `45/78` on Step.
 
 ### Built-in programs
 
@@ -85,12 +99,12 @@ That builds `VST/chord-stage-arm32.so` and `VST/chord-stage-arm64.so` into `buil
 test/run.sh
 ```
 
-`test/run.sh` plays a scripted performance and writes `build/script.wav`. It covers Chords, Sloppy and Lock modes, Smooth voicing, the bass zone, strum timing, and arp steps on the grid while the transport plays. It checks every chord's pitches in the audio and the Now / Next text, 48 checks in all.
+`test/run.sh` plays a scripted performance and writes `build/script.wav`. It covers Chords, Sloppy and Lock modes, Smooth voicing, the bass zone, strum timing, and arp steps on the grid while the transport plays. It also loads progression files from `test/fixture/Content/Progressions`, a stand-in for the card. It checks every chord's pitches in the audio and the Now / Next text, 66 checks in all.
 
 ## Honest notes
 
 - **Now / Next refresh.** To get the MPC to redraw it, the plugin bumps that parameter's value and tells the host it changed (`audioMasterAutomate`), at most every 30 ms and only when the text changes. This works in the simulator. Whether the MPC screen redraws right away needs checking on the hardware.
-- **Not ported from the web app:** typing your own progressions (the MPC has no text entry), importing MPC `.progression` files, song form, the drum beat, loop recording, melody-over, the wind controller and MIDI out to other tracks.
+- **Not ported from the web app:** typing your own progressions (the MPC has no text entry), song form, the drum beat, loop recording, melody-over, the wind controller and MIDI out to other tracks.
 - **No reverb**, to keep CPU low. Put the MPC's own reverb on the track.
 - **CPU:** up to 16 voices. E.Piano and Organ are table-lookup sines. Pad and Strings use 2–3 anti-aliased saws and a filter per voice, so they cost the most. In the simulator the plugin uses well under 1% of a desktop core; expect a few percent on the Live III.
 - Parameter ids and order are fixed now that projects can be saved. New parameters will only be added at the end.
