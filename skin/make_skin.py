@@ -31,17 +31,16 @@ WHITE, MUTED, ACCENT = "ffffffff", "ff8a8a8e", "ff9b63ff"   # ACCENT = the viole
 
 
 def label(name, kind, bounds, height, colour, style="Regular", justification="left verticallyCentred",
-          param_handle=None, text=None):
+          param_handle=None, text=None, case="Original"):
     data = {"version": 1,
             "textStyle": {"version": 1, "font": {"version": 1, "name": FONT, "style": style, "height": float(height)},
-                          "colour": colour, "justification": justification, "case": "Original"},
+                          "colour": colour, "justification": justification, "case": case},
             "type": kind, "handleName": "Data"}
     if text is not None:
         data["text"] = text
     return {"version": 2,
             "componentData": {"version": 1, "name": name, "type": "Label", "data": data},
             "handle remapping": {"version": 1, "map": [{"key": "Data", "value": param_handle}] if param_handle else []},
-            # "Show" even without a parameter: the SDK's own captions use "Hide", which blanks fixed text
             "bounds": {"version": 1, "acceptsHWFocus": "No", "showWhenDataModelInvalid": "Show",
                        "whenVisible": "Always", "boundsType": "Absolute", "bounds": bounds}}
 
@@ -67,12 +66,16 @@ def main():
         comps = play["componentDefinition"]["componentsData"]
         # Rows 1-2 of the grid (y 45..303) are free: NOW + STEP on the left, NEXT big on the right
         comps += [
-            label("now heading", "Text", "40 40 380 34", 26, MUTED, text="NOW"),
-            label("now value", "Value", "40 74 400 110", 76, WHITE, "SemiBold", param_handle=handle["Now"]),
-            label("step heading", "Text", "40 200 380 34", 26, MUTED, text="STEP"),
+            # Headings are "Name" labels (the parameter's name in capitals): fixed "Text" labels do
+            # not draw on the MPC (seen on a Live III, OS 3.10.1)
+            label("now heading", "Name", "40 40 380 34", 26, MUTED, param_handle=handle["Now"], case="Upper Case"),
+            # The MPC draws label text at about 2/3 of font.height (Live III, OS 3.10.1), so sizes are set high
+            label("now value", "Value", "40 74 400 120", 110, WHITE, "SemiBold", param_handle=handle["Now"]),
+            label("step heading", "Name", "40 200 380 34", 26, MUTED, param_handle=handle["Step"], case="Upper Case"),
             label("step value", "Value", "40 232 400 64", 44, WHITE, param_handle=handle["Step"]),
-            label("next heading", "Text", "470 40 780 34", 26, ACCENT, "SemiBold", text="NEXT"),
-            label("next value", "Value", "470 70 790 226", 130, ACCENT, "Bold", param_handle=handle["Next"]),   # 130 px: "A#maj9#11/C" still fits
+            label("next heading", "Name", "450 40 810 34", 26, ACCENT, "SemiBold", "horizontallyCentred verticallyCentred", param_handle=handle["Next"], case="Upper Case"),
+            label("next value", "Value", "450 70 810 230", 200, ACCENT, "Bold", "horizontallyCentred verticallyCentred",
+                  param_handle=handle["Next"]),   # about 130 px on screen: "A#maj9#11/C" still fits
         ]
         json.dump(tui, open(tui_path, "w"), indent=4)
         out = os.path.join(PROJECT, "skins")

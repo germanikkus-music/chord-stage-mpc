@@ -1439,16 +1439,20 @@
                                         },
                                         "colour": "ff8a8a8e",
                                         "justification": "left verticallyCentred",
-                                        "case": "Original"
+                                        "case": "Upper Case"
                                     },
-                                    "type": "Text",
-                                    "handleName": "Data",
-                                    "text": "NOW"
+                                    "type": "Name",
+                                    "handleName": "Data"
                                 }
                             },
                             "handle remapping": {
                                 "version": 1,
-                                "map": []
+                                "map": [
+                                    {
+                                        "key": "Data",
+                                        "value": "Parameter 33"
+                                    }
+                                ]
                             },
                             "bounds": {
                                 "version": 1,
@@ -1473,7 +1477,7 @@
                                             "version": 1,
                                             "name": "Titillium Web",
                                             "style": "SemiBold",
-                                            "height": 76.0
+                                            "height": 110.0
                                         },
                                         "colour": "ffffffff",
                                         "justification": "left verticallyCentred",
@@ -1498,7 +1502,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "40 74 400 110"
+                                "bounds": "40 74 400 120"
                             }
                         },
                         {
@@ -1519,16 +1523,20 @@
                                         },
                                         "colour": "ff8a8a8e",
                                         "justification": "left verticallyCentred",
-                                        "case": "Original"
+                                        "case": "Upper Case"
                                     },
-                                    "type": "Text",
-                                    "handleName": "Data",
-                                    "text": "STEP"
+                                    "type": "Name",
+                                    "handleName": "Data"
                                 }
                             },
                             "handle remapping": {
                                 "version": 1,
-                                "map": []
+                                "map": [
+                                    {
+                                        "key": "Data",
+                                        "value": "Parameter 5"
+                                    }
+                                ]
                             },
                             "bounds": {
                                 "version": 1,
@@ -1598,17 +1606,21 @@
                                             "height": 26.0
                                         },
                                         "colour": "ff9b63ff",
-                                        "justification": "left verticallyCentred",
-                                        "case": "Original"
+                                        "justification": "horizontallyCentred verticallyCentred",
+                                        "case": "Upper Case"
                                     },
-                                    "type": "Text",
-                                    "handleName": "Data",
-                                    "text": "NEXT"
+                                    "type": "Name",
+                                    "handleName": "Data"
                                 }
                             },
                             "handle remapping": {
                                 "version": 1,
-                                "map": []
+                                "map": [
+                                    {
+                                        "key": "Data",
+                                        "value": "Parameter 34"
+                                    }
+                                ]
                             },
                             "bounds": {
                                 "version": 1,
@@ -1616,7 +1628,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "470 40 780 34"
+                                "bounds": "450 40 810 34"
                             }
                         },
                         {
@@ -1633,10 +1645,10 @@
                                             "version": 1,
                                             "name": "Titillium Web",
                                             "style": "Bold",
-                                            "height": 130.0
+                                            "height": 200.0
                                         },
                                         "colour": "ff9b63ff",
-                                        "justification": "left verticallyCentred",
+                                        "justification": "horizontallyCentred verticallyCentred",
                                         "case": "Original"
                                     },
                                     "type": "Value",
@@ -1658,7 +1670,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "470 70 790 226"
+                                "bounds": "450 70 810 230"
                             }
                         }
                     ]

@@ -161,7 +161,7 @@ public:
         i.name = "Chord Stage";
         i.vendor = "Germanikkus";
         i.uniqueId = MPC_FOURCC('G','w','z','6');
-        i.version = 1200;
+        i.version = 1201;
         i.isInstrument = true;
         i.numInputs = 0;
         i.numOutputs = 2;
