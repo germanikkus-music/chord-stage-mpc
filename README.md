@@ -12,6 +12,8 @@ The MPC version of [Chord Stage](https://germanikkus-music.github.io/chord-stage
 - **Big Now / Next display.** The top half of the PLAY page shows the chord to play **next** in large type, with the chord you just played and the step beside it.
 - **Your own MPC progressions.** Drop `.progression` files into the plugin's `Content/Progressions` folder and pick one with **Prog File**. Its chords play with the file's exact notes.
 
+**Full guide:** [HELP.md](HELP.md), with screenshots of every page, also as a PDF: [docs/Chord-Stage-Help.pdf](docs/Chord-Stage-Help.pdf). To rebuild the PDF after editing HELP.md, run `python3 docs/make_help_pdf.py`.
+
 ## Install
 
 1. Put the MPC's SD card (or a USB drive) in your computer.
