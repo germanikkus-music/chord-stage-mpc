@@ -65,6 +65,20 @@ struct Plug
             char b[256] = {0}; d(effGetParamDisplay, i, 0, b);
             if (std::string(b) == text) return;
         }
+        // Numbers on a fine (log) scale may never show exactly: take the closest one
+        char* end = nullptr; const double want = std::strtod(text, &end);
+        if (end != text)
+        {
+            int best = -1; double bestErr = 1e30;
+            for (int k = 0; k <= 20000; ++k)
+            {
+                e->setParameter(e, i, (float)k / 20000.0f);
+                char b[256] = {0}; d(effGetParamDisplay, i, 0, b);
+                const double v = std::strtod(b, nullptr), err = std::fabs(v - want);
+                if (err < bestErr) { bestErr = err; best = k; }
+            }
+            if (bestErr <= 0.02 * std::fabs(want) + 0.5) { e->setParameter(e, i, (float)best / 20000.0f); return; }
+        }
         std::fprintf(stderr, "could not set %s to %s\n", name, text); std::exit(1);
     }
 };
@@ -142,7 +156,28 @@ static std::string fmt(const std::set<int>& s)
     return o.empty() ? "(silence)" : o;
 }
 
+static void writeWav(const char* path, size_t from, size_t to)
+{
+    FILE* f = std::fopen(path, "wb");
+    if (!f) return;
+    const uint32_t frames = (uint32_t)(to - from), dataBytes = frames * 4, riff = 36 + dataBytes, fmtLen = 16, sr = (uint32_t)kSR, br = sr * 4;
+    const uint16_t pcm = 1, ch = 2, ba = 4, bits = 16;
+    std::fwrite("RIFF", 1, 4, f); std::fwrite(&riff, 4, 1, f); std::fwrite("WAVEfmt ", 1, 8, f);
+    std::fwrite(&fmtLen, 4, 1, f); std::fwrite(&pcm, 2, 1, f); std::fwrite(&ch, 2, 1, f); std::fwrite(&sr, 4, 1, f);
+    std::fwrite(&br, 4, 1, f); std::fwrite(&ba, 2, 1, f); std::fwrite(&bits, 2, 1, f);
+    std::fwrite("data", 1, 4, f); std::fwrite(&dataBytes, 4, 1, f);
+    for (size_t i = from; i < to; ++i)
+    {
+        int16_t v[2] = {(int16_t)std::lround(std::fmax(-1.0, std::fmin(1.0, L[i])) * 32767.0),
+                        (int16_t)std::lround(std::fmax(-1.0, std::fmin(1.0, R[i])) * 32767.0)};
+        std::fwrite(v, 2, 2, f);
+    }
+    std::fclose(f);
+    std::printf("wrote %s (%.1f s)\n", path, frames / kSR);
+}
+
 static int failures = 0, checks = 0;
+static size_t soundsFrom = 0, soundsTo = 0;
 static void expectNotes(const char* what, const std::set<int>& got, const std::set<int>& want)
 {
     ++checks;
@@ -313,27 +348,38 @@ int main(int argc, char** argv)
     expectText("Gymnopedie sets Key", p.display("Key"), "D");
     chord(p, 67, {43, 59, 62, 66}, "Gymnopedie G3 -> Gmaj7 as written", "Gmaj7 > Dmaj7");
 
+    std::printf("I. Every sound: C Am F G with the normal settings (also written to the sounds demo WAV)\n");
+    p.setText("Prog File", "None"); p.setText("Mode", "Chords"); p.setText("Key", "C"); p.setText("Scale", "Major");
+    p.setText("Tone", "50"); p.setText("Chorus", "30"); p.setText("Vel Sens", "70");
+    p.setText("Attack", "2"); p.setText("Decay", "2500"); p.setText("Sustain", "30"); p.setText("Release", "350");   // the defaults
+    render(p, 0.3);
+    const size_t soundsFrom0 = L.size();
+    double epRms = 0;
+    const char* sounds[] = {"E.Piano", "Pad", "Strings", "Organ", "Piano", "Syn Keys", "Wurli", "Bell EP", "Syn Pad"};
+    for (const char* snd : sounds)
+    {
+        p.setText("Sound", snd);
+        const size_t from = L.size();
+        for (int key : {60, 69, 65, 67}) { noteOn(key); render(p, 0.7); noteOff(key); render(p, 0.05); }
+        render(p, 0.6);
+        // Level of the first chord (C) once it has settled in
+        double sum = 0, peak = 0; size_t n = 0;
+        for (size_t i = from; i < L.size(); ++i) peak = std::fmax(peak, std::fabs(L[i]) + 0.0);
+        for (size_t i = from + (size_t)(0.35 * kSR); i < from + (size_t)(0.7 * kSR); ++i) { sum += L[i] * L[i]; ++n; }
+        const double rms = std::sqrt(sum / (double)n);
+        if (std::string(snd) == "E.Piano") epRms = rms;
+        const double rel = 20.0 * std::log10(rms / epRms), pk = 20.0 * std::log10(peak);
+        ++checks;
+        const bool ok = rms > 1e-3 && peak < 0.99 && std::fabs(rel) <= 9.0;
+        if (!ok) ++failures;
+        std::printf("  %-4s %-10s level %+5.1f dB vs E.Piano, peak %5.1f dBFS\n", ok ? "PASS" : "FAIL", snd, rel, pk);
+    }
+    soundsFrom = soundsFrom0; soundsTo = L.size();
+
     p.d(effStopProcess); p.d(effMainsChanged, 0, 0); p.d(effClose);
 
-    // WAV out
-    FILE* f = std::fopen(argv[2], "wb");
-    if (f)
-    {
-        const uint32_t frames = (uint32_t)L.size(), dataBytes = frames * 4, riff = 36 + dataBytes, fmtLen = 16, sr = (uint32_t)kSR, br = sr * 4;
-        const uint16_t pcm = 1, ch = 2, ba = 4, bits = 16;
-        std::fwrite("RIFF", 1, 4, f); std::fwrite(&riff, 4, 1, f); std::fwrite("WAVEfmt ", 1, 8, f);
-        std::fwrite(&fmtLen, 4, 1, f); std::fwrite(&pcm, 2, 1, f); std::fwrite(&ch, 2, 1, f); std::fwrite(&sr, 4, 1, f);
-        std::fwrite(&br, 4, 1, f); std::fwrite(&ba, 2, 1, f); std::fwrite(&bits, 2, 1, f);
-        std::fwrite("data", 1, 4, f); std::fwrite(&dataBytes, 4, 1, f);
-        for (uint32_t i = 0; i < frames; ++i)
-        {
-            int16_t s[2] = {(int16_t)std::lround(std::fmax(-1.0, std::fmin(1.0, L[i])) * 32767.0),
-                            (int16_t)std::lround(std::fmax(-1.0, std::fmin(1.0, R[i])) * 32767.0)};
-            std::fwrite(s, 2, 2, f);
-        }
-        std::fclose(f);
-        std::printf("wrote %s (%.1f s)\n", argv[2], frames / kSR);
-    }
+    writeWav(argv[2], 0, L.size());
+    if (argc > 3) writeWav(argv[3], soundsFrom, soundsTo);
     std::printf("%s: %d checks, %d failed\n", failures ? "FAIL" : "PASS", checks, failures);
     return failures ? 1 : 0;
 }

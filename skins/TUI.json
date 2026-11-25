@@ -1156,7 +1156,12 @@
                     "E.Piano",
                     "Pad",
                     "Strings",
-                    "Organ"
+                    "Organ",
+                    "Piano",
+                    "Syn Keys",
+                    "Wurli",
+                    "Bell EP",
+                    "Syn Pad"
                 ]
             }
         ],

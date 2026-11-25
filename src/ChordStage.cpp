@@ -69,7 +69,7 @@ enum P
     kArpGate,      // % of a step
     kVelSens,      // velocity sensitivity %
     kArpLatch,     // arp keeps going after you let go, until the next chord
-    kSound,        // E.Piano / Pad / Strings / Organ
+    kSound,        // E.Piano / Pad / Strings / Organ / Piano / Syn Keys / Wurli / Bell EP / Syn Pad
     kTone,         // brightness %
     kChorus,       // %
     kAttack, kDecay, kSustain, kRelease,   // amp envelope of the chord sound
@@ -133,7 +133,8 @@ public:
         addParam(floatParam("arpgate", "Arp Gate", 10.0f, 100.0f, 80.0f, "%", 0));
         addParam(floatParam("velsens", "Vel Sens", 0.0f, 100.0f, 70.0f, "%", 0));
         addParam(boolParam("arplatch", "Arp Latch", false));
-        addParam(choiceParam("sound", "Sound", {"E.Piano", "Pad", "Strings", "Organ"}, 0));
+        // New sounds go at the end of the list so saved projects keep theirs
+        addParam(choiceParam("sound", "Sound", {"E.Piano", "Pad", "Strings", "Organ", "Piano", "Syn Keys", "Wurli", "Bell EP", "Syn Pad"}, 0));
         addParam(floatParam("tone", "Tone", 0.0f, 100.0f, 50.0f, "%", 0));
         addParam(floatParam("chorus", "Chorus", 0.0f, 100.0f, 30.0f, "%", 0));
         addParam(logParam("attack", "Attack", 1.0f, 3000.0f, 2.0f, "ms", 0));
@@ -161,7 +162,7 @@ public:
         i.name = "Chord Stage";
         i.vendor = "Germanikkus";
         i.uniqueId = MPC_FOURCC('G','w','z','6');
-        i.version = 1201;
+        i.version = 1300;
         i.isInstrument = true;
         i.numInputs = 0;
         i.numOutputs = 2;
@@ -314,7 +315,8 @@ private:
 
         engine_.tone = get(kTone) * 0.01f;
         engine_.chorus = get(kChorus) * 0.01f;
-        mainSound_ = mpc::clamp(getInt(kSound), 0, 3);
+        static const int kSoundMap[] = {kEPiano, kPad, kStrings, kOrgan, kPiano, kSynKeys, kWurli, kBellEP, kSynPad};
+        mainSound_ = kSoundMap[mpc::clamp(getInt(kSound), 0, 8)];
         EnvSettings e; e.a = get(kAttack); e.d = get(kDecay); e.s = get(kSustain) * 0.01f; e.r = get(kRelease);
         if (e.a != engine_.envSet.a || e.d != engine_.envSet.d || e.s != engine_.envSet.s || e.r != engine_.envSet.r)
         { engine_.envSet = e; engine_.envChanged(); }
@@ -680,6 +682,16 @@ private:
         addProgram("Blues Lock", with({{kMode, 2}, {kProg, 11}, {kBassSplit, 13}, {kBassStyle, 1}, {kTone, 60}}));
         addProgram("Minor Pad", with({{kSound, 1}, {kKey, 9}, {kScale, 1}, {kMode, 1}, {kProg, 12}, {kAttack, 120}, {kDecay, 2000},
                                        {kSustain, 90}, {kRelease, 1500}, {kChorus, 70}, {kTone, 35}}));
+        // One for each of the sounds added in 1.3.0 (appended: program numbers are saved in projects)
+        addProgram("Soft Piano", with({{kSound, 4}, {kDecay, 5000}, {kSustain, 15}, {kRelease, 500}, {kChorus, 10}, {kTone, 45}}));
+        addProgram("Synth Keys Arp", with({{kSound, 5}, {kArp, 1}, {kArpRate, 3}, {kArpOct, 2}, {kArpLatch, 1}, {kDecay, 600},
+                                            {kSustain, 45}, {kRelease, 250}, {kChorus, 45}, {kSevenths, 1}}));
+        addProgram("Wurli Soul", with({{kSound, 6}, {kMode, 1}, {kProg, 7}, {kSevenths, 1}, {kDecay, 3000}, {kSustain, 35},
+                                        {kRelease, 300}, {kChorus, 35}, {kTone, 55}}));
+        addProgram("Bell Ballad", with({{kSound, 7}, {kMode, 1}, {kProg, 9}, {kStrum, 3}, {kDecay, 4000}, {kSustain, 25},
+                                         {kRelease, 900}, {kChorus, 55}, {kTone, 50}}));
+        addProgram("Syn Pad Lock", with({{kSound, 8}, {kMode, 2}, {kProg, 8}, {kAttack, 40}, {kDecay, 3000}, {kSustain, 90},
+                                          {kRelease, 1600}, {kChorus, 60}, {kTone, 45}}));
     }
 
     // ------------------------------------------------------------------ state

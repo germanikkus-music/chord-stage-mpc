@@ -8,7 +8,7 @@ The MPC version of [Chord Stage](https://germanikkus-music.github.io/chord-stage
 - **Smooth voicing.** Each chord takes the inversion closest to the last one, like the web app's voice leading.
 - **Strum and Arp** follow the MPC tempo. While the transport plays, arp steps land on the MPC's grid.
 - **Bass zone** on the far left (single notes, octaves or root + 5th), kept in key.
-- **Sounds:** E.Piano, Pad, Strings and Organ, plus a synth bass for the bass zone and a light chorus.
+- **Sounds:** E.Piano (Rhodes-style), Pad, Strings, Organ, Piano (soft), Syn Keys, Wurli, Bell EP and Syn Pad, plus a synth bass for the bass zone and a light chorus.
 - **Big Now / Next display.** The top half of the PLAY page shows the chord to play **next** in large type, with the chord you just played and the step beside it.
 - **Your own MPC progressions.** Drop `.progression` files into the plugin's `Content/Progressions` folder and pick one with **Prog File**. Its chords play with the file's exact notes.
 
@@ -72,7 +72,7 @@ python3 tools/midi2progression.py ~/MPC/Splice_Genre_Progressions --out converte
 
 ### Built-in programs
 
-EP Chords · Sloppy Pop · Neo Soul Lock · Pad Arp · Strings Strum · Gospel Organ · Blues Lock · Minor Pad
+EP Chords · Sloppy Pop · Neo Soul Lock · Pad Arp · Strings Strum · Gospel Organ · Blues Lock · Minor Pad · Soft Piano · Synth Keys Arp · Wurli Soul · Bell Ballad · Syn Pad Lock
 
 ### Progressions
 
@@ -122,14 +122,14 @@ That builds `VST/chord-stage-arm32.so` and `VST/chord-stage-arm64.so` into `buil
 test/run.sh
 ```
 
-`test/run.sh` plays a scripted performance and writes `build/script.wav`. It covers Chords, Sloppy and Lock modes, Smooth voicing, the bass zone, strum timing, and arp steps on the grid while the transport plays. It also loads progression files from `test/fixture/Content/Progressions`, a stand-in for the card. It checks every chord's pitches in the audio and the Now / Next text, 75 checks in all.
+`test/run.sh` plays a scripted performance and writes `build/script.wav`. It covers Chords, Sloppy and Lock modes, Smooth voicing, the bass zone, strum timing, and arp steps on the grid while the transport plays. It also loads progression files from `test/fixture/Content/Progressions`, a stand-in for the card. It checks every chord's pitches in the audio and the Now / Next text, and plays every sound to check its level (`build/sounds.wav` is a demo of all nine), 84 checks in all.
 
 ## Honest notes
 
 - **Now / Next refresh.** To get the MPC to redraw it, the plugin bumps the display parameters' values and tells the host they changed (`audioMasterAutomate`), at most every 30 ms and only when the text changes. On the MPC Live III the display updates as you play.
 - **Not ported from the web app:** typing your own progressions (the MPC has no text entry), song form, the drum beat, loop recording, melody-over, the wind controller and MIDI out to other tracks.
 - **No reverb**, to keep CPU low. Put the MPC's own reverb on the track.
-- **CPU:** up to 16 voices. E.Piano and Organ are table-lookup sines. Pad and Strings use 2–3 anti-aliased saws and a filter per voice, so they cost the most. In the simulator the plugin uses well under 1% of a desktop core; expect a few percent on the Live III.
+- **CPU:** up to 16 voices. E.Piano, Piano, Wurli, Bell EP and Organ are table-lookup sines. Pad, Strings, Syn Keys and Syn Pad use 2–3 anti-aliased saws and a filter per voice, so they cost the most. In the simulator the plugin uses well under 1% of a desktop core; expect a few percent on the Live III.
 - Parameter ids and order are fixed now that projects can be saved. New parameters will only be added at the end.
 
 ## License
