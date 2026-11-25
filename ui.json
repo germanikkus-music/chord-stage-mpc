@@ -4,10 +4,14 @@
     {
       "name": "PLAY",
       "controls": [
-        {
-          "param": "Now / Next",
-          "widget": "slider"
-        },
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
         {
           "param": "Step",
           "widget": "slider"
@@ -16,6 +20,10 @@
           "param": "Progression",
           "widget": "slider",
           "overlay": "menu"
+        },
+        {
+          "param": "Prog File",
+          "widget": "slider"
         },
         {
           "param": "Mode",
@@ -39,31 +47,7 @@
         {
           "param": "Smooth",
           "widget": "switch"
-        },
-        {
-          "param": "Sound",
-          "widget": "slider",
-          "overlay": "menu"
-        },
-        {
-          "param": "Tone",
-          "widget": "knob"
-        },
-        {
-          "param": "Chorus",
-          "widget": "knob"
-        },
-        {
-          "param": "Volume",
-          "widget": "fader"
-        },
-        {
-          "param": "Prog File",
-          "widget": "slider"
-        },
-        "empty",
-        "empty",
-        "empty"
+        }
       ]
     },
     {

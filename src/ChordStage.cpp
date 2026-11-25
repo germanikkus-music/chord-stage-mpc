@@ -74,6 +74,8 @@ enum P
     kChorus,       // %
     kAttack, kDecay, kSustain, kRelease,   // amp envelope of the chord sound
     kFile,         // 0 = none, n = the n-th .progression file in Content/Progressions (overrides Progression)
+    kNow,          // read-only display: the chord you just played (big on the PLAY page)
+    kNext,         // read-only display: the chord to play next (the PLAY page's centerpiece)
     kNumParams
 };
 
@@ -141,6 +143,9 @@ public:
         // A plain 0..64 slider (not a choice): the files are only known on the MPC, so the
         // skin must not bake in a list of names. The value text shows the file name.
         addParam(floatParam("progfile", "Prog File", 0.0f, (float)kMaxFiles, 0.0f, "", 0));
+        // Display only: their value is a counter bumped whenever the text changes (see publishDisplay)
+        Param pn = intParam("now", "Now", 0, 1000, 0); pn.automatable = false; addParam(pn);
+        Param px = intParam("next", "Next", 0, 1000, 0); px.automatable = false; addParam(px);
 
         files_ = loadProgFiles();
 
@@ -156,7 +161,7 @@ public:
         i.name = "Chord Stage";
         i.vendor = "Germanikkus";
         i.uniqueId = MPC_FOURCC('G','w','z','6');
-        i.version = 1101;
+        i.version = 1200;
         i.isInstrument = true;
         i.numInputs = 0;
         i.numOutputs = 2;
@@ -185,6 +190,12 @@ public:
             const Chord now = Chord::unpack(nowA_.load(std::memory_order_relaxed));
             const Chord next = Chord::unpack(nextA_.load(std::memory_order_relaxed));
             out = chordName(k, now) + " > " + chordName(k, next);
+            return true;
+        }
+        if (index == kNow || index == kNext)
+        {
+            Key k; k.root = keyA_.load(std::memory_order_relaxed); k.scale = scaleA_.load(std::memory_order_relaxed);
+            out = chordName(k, Chord::unpack((index == kNow ? nowA_ : nextA_).load(std::memory_order_relaxed)));
             return true;
         }
         if (index == kFile)
@@ -636,8 +647,11 @@ private:
 
         // Bump the display parameter so the host re-reads its text
         nowNextCounter_ = (nowNextCounter_ + 1) % 1000;
-        values_[kNowNext]->store(param(kNowNext).toNormalised((float)nowNextCounter_), std::memory_order_relaxed);
-        notifyHostParameterChanged(kNowNext);
+        for (int d : {(int)kNowNext, (int)kNow, (int)kNext})
+        {
+            values_[d]->store(param(d).toNormalised((float)nowNextCounter_), std::memory_order_relaxed);
+            notifyHostParameterChanged(d);
+        }
         if (stepMoved_ && progLen() > 0)
         {
             stepMoved_ = false;

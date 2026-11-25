@@ -9,7 +9,7 @@ The MPC version of [Chord Stage](https://germanikkus-music.github.io/chord-stage
 - **Strum and Arp** follow the MPC tempo. While the transport plays, arp steps land on the MPC's grid.
 - **Bass zone** on the far left (single notes, octaves or root + 5th), kept in key.
 - **Sounds:** E.Piano, Pad, Strings and Organ, plus a synth bass for the bass zone and a light chorus.
-- **Now / Next** on the PLAY page shows the chord you played and the one to play next, e.g. `Am > G`.
+- **Big Now / Next display.** The top half of the PLAY page shows the chord to play **next** in large type, with the chord you just played and the step beside it.
 - **Your own MPC progressions.** Drop `.progression` files into the plugin's `Content/Progressions` folder and pick one with **Prog File**. Its chords play with the file's exact notes.
 
 ## Install
@@ -27,7 +27,7 @@ The plugin is an instrument, so it plays its own sound. Plugins on the MPC can't
 
 | Page | Top row | Next rows |
 |---|---|---|
-| **PLAY** | Now / Next · Step · Progression · Mode | Key · Scale · 7ths · Smooth / Sound · Tone · Chorus · Volume / Prog File |
+| **PLAY** | Big NEXT chord, with NOW and STEP beside it | Step · Progression · Prog File · Mode / Key · Scale · 7ths · Smooth |
 | **CHORDS** | Split · Upper · Root Bass · Chord Oct | Bass Split · Bass Style · Bass Sound · Bass Level |
 | **FEEL** | Strum · Strum Dir · Arp · Arp Rate | Arp Oct · Arp Gate · Arp Latch · Vel Sens |
 | **SOUND** | Attack · Decay · Sustain · Release | Sound · Tone · Chorus · Volume |
@@ -95,6 +95,14 @@ EP Chords · Sloppy Pop · Neo Soul Lock · Pad Arp · Strings Strum · Gospel O
 | Rock bVII | I bVII IV I |
 
 Plain numerals (no 7 or 9) become 7th chords when **7ths** is on and the chord belongs to the key. Pick Key and Scale yourself; the minor progressions sound right with Scale set to Minor, though they play correctly in any scale.
+
+## The screen (skin)
+
+`ui.json` lays out the pages. The big Now / Next display on PLAY is added by `skin/make_skin.py`, because ui.json can't size text. That script writes `skins/`, which the build copies as is. After changing ui.json:
+
+```bash
+python3 skin/make_skin.py && python3 ../mpc-plugin-builder-sdk/tools/build.py .
+```
 
 ## Build and test
 

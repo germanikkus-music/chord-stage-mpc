@@ -284,6 +284,8 @@ int main(int argc, char** argv)
     expectText("and Scale (Chromatic -> best fit)", p.display("Scale"), "Major");
     expectText("before playing", p.display("Now / Next"), "- > Ebmaj7");
     chord(p, 63, {39, 55, 58, 62}, "Eb4 -> D#maj7 as written", "Ebmaj7 > Cmin9");
+    expectText("big Now display", p.display("Now"), "Ebmaj7");
+    expectText("big Next display", p.display("Next"), "Cmin9");
     chord(p, 61, {36, 58, 62, 63, 67}, "C#4 (snaps to C) -> Cmin9", "Cmin9 > Ab/C");
     chord(p, 56, {36, 56, 60, 63}, "Ab3 -> G#/C as Ab/C", "Ab/C > Bb7");
     expectText("Step", p.display("Step"), "4/4");
