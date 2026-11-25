@@ -156,7 +156,7 @@ public:
         i.name = "Chord Stage";
         i.vendor = "Germanikkus";
         i.uniqueId = MPC_FOURCC('G','w','z','6');
-        i.version = 1100;
+        i.version = 1101;
         i.isInstrument = true;
         i.numInputs = 0;
         i.numOutputs = 2;
@@ -367,13 +367,16 @@ private:
         Notes exact;
         const int pcs[2] = {mod12(note), mod12(key_.snapNearest(note))};
         auto matches = [&pcs](const Chord& c) { return c.rootPc == pcs[0] || c.rootPc == pcs[1]; };
+        // A near miss: the key is a half step from the root. Roots outside the key (Abmin7 in
+        // F major) can't be reached by snapping, because the keys around them are in the key.
+        auto near = [note](const Chord& c) { const int d = mod12(note - c.rootPc); return d == 1 || d == 11; };
 
         if (mode == 2 && len > 0)   // Lock
         {
             const Chord c = progChord(progPos_, sev, &exact);
             const int64_t now = clock_ + curPos_;
             const bool sameHand = now - lockAt_ < (int64_t)(0.15 * sampleRate());   // keys landing right after it are the same hand
-            if (!matches(c) || sameHand) return;   // silent
+            if (!(matches(c) || near(c)) || sameHand) return;   // silent
             lockAt_ = now;
             advance(1);
             playChord(c, note, amp, &exact);
@@ -381,14 +384,16 @@ private:
         }
         if (mode == 1 && len > 0)   // Sloppy
         {
-            for (int k = 0; k < (len < 2 ? len : 2); ++k)
-            {
-                const Chord c = progChord((progPos_ + k) % len, sev, &exact);
-                if (!matches(c)) continue;
-                advance(k + 1);
-                playChord(c, note, amp, &exact);
-                return;
-            }
+            // Exact hits first (this chord or the one after), then near misses
+            for (int pass = 0; pass < 2; ++pass)
+                for (int k = 0; k < (len < 2 ? len : 2); ++k)
+                {
+                    const Chord c = progChord((progPos_ + k) % len, sev, &exact);
+                    if (pass == 0 ? !matches(c) : !near(c)) continue;
+                    advance(k + 1);
+                    playChord(c, note, amp, &exact);
+                    return;
+                }
         }
         // One key = one chord
         const Chord c = key_.diatonic(key_.degreeOf(note), sev);

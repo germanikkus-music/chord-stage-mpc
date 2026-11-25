@@ -290,6 +290,13 @@ int main(int argc, char** argv)
     p.setText("Mode", "Lock");
     chord(p, 63, {}, "Lock: Eb while Bb7 is next -> silent");
     chord(p, 58, {46, 56, 58, 62, 65}, "Lock: Bb3 -> A#7 as Bb7", "Bb7 > Ebmaj7");
+    // D is in Eb major so it does not snap; a half step from Eb still counts
+    chord(p, 62, {39, 55, 58, 62}, "Lock: D4 (half step off) -> Ebmaj7", "Ebmaj7 > Cmin9");
+    chord(p, 66, {}, "Lock: F#4 (3 steps off) -> silent");
+    p.setText("Mode", "Sloppy");
+    chord(p, 61, {36, 58, 62, 63, 67}, "Sloppy: C#4 -> Cmin9 (exact first)", "Cmin9 > Ab/C");
+    chord(p, 57, {36, 56, 60, 63}, "Sloppy: A3 (half step off) -> Ab/C", "Ab/C > Bb7");
+    p.setText("Mode", "Lock");
     {
         // A saved project remembers the file by name
         void* chunk = nullptr; const VstIntPtr n = p.d(effGetChunk, 0, 0, &chunk);

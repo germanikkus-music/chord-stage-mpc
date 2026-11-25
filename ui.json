@@ -19,7 +19,8 @@
         },
         {
           "param": "Mode",
-          "widget": "switch"
+          "widget": "slider",
+          "overlay": "menu"
         },
         {
           "param": "Key",
@@ -41,7 +42,8 @@
         },
         {
           "param": "Sound",
-          "widget": "switch"
+          "widget": "slider",
+          "overlay": "menu"
         },
         {
           "param": "Tone",
@@ -74,7 +76,8 @@
         },
         {
           "param": "Upper",
-          "widget": "switch"
+          "widget": "slider",
+          "overlay": "menu"
         },
         {
           "param": "Root Bass",
@@ -91,11 +94,13 @@
         },
         {
           "param": "Bass Style",
-          "widget": "switch"
+          "widget": "slider",
+          "overlay": "menu"
         },
         {
           "param": "Bass Sound",
-          "widget": "switch"
+          "widget": "slider",
+          "overlay": "menu"
         },
         {
           "param": "Bass Level",
@@ -113,7 +118,8 @@
         },
         {
           "param": "Strum Dir",
-          "widget": "switch"
+          "widget": "slider",
+          "overlay": "menu"
         },
         {
           "param": "Arp",
@@ -164,7 +170,8 @@
         },
         {
           "param": "Sound",
-          "widget": "switch"
+          "widget": "slider",
+          "overlay": "menu"
         },
         {
           "param": "Tone",

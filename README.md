@@ -33,6 +33,7 @@ The plugin is an instrument, so it plays its own sound. Plugins on the MPC can't
 | **SOUND** | Attack · Decay · Sustain · Release | Sound · Tone · Chorus · Volume |
 
 - **Mode.** **Chords** means every key plays its key's chord. If a progression is loaded and you play its next chord (or the one after), Step moves on. **Sloppy** means a key whose note, or the in-key note it snaps to, is the root of the next (or next-but-one) progression chord plays that chord, including chords from outside the key such as the E major in the Andalusian progression. Any other key plays its own chord in the key. **Lock** means only the next chord's root key plays (that chord). Keys pressed within 150 ms after it count as the same hand and stay silent.
+- **Near misses count.** In Sloppy and Lock, a key a half step from the next chord's root also plays it, so for `Abmin7` in F major, A, Ab and G all work. In Sloppy an exact hit wins over a near miss.
 - **Step** shows where you are (`3/8`). Turn it to jump. Pressing Play from the start of the sequence sends the progression back to step 1, and so does changing the Progression or the Key.
 - **Split / Upper.** Keys at or above Split play the Upper zone: single notes in key (**Melody**) or chords. Off means the whole keyboard plays chords.
 - **Bass Split.** Keys below it play bass notes in key, moved down so the zone sits in bass range. **Bass Sound** is the built-in synth bass, or **Main** for the chord sound.
