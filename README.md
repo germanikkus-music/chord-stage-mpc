@@ -53,7 +53,21 @@ Put `.progression` files (the MPC's own chord progression files, the same ones t
 - Each chord plays the **exact notes in the file**: Smooth, Root Bass and 7ths don't change them, but Chord Oct, Strum and Arp still apply. Sloppy and Lock find the chord by the root in its name, so `G#/C` plays from an Ab key. Names are respelled for the key, so in Eb, `D#maj7` shows as `Ebmaj7`.
 - Files are read when the plugin loads. After adding or removing files, reload the plugin (or the project) to see them.
 - A project remembers the file by name. If you remove that file, the project falls back to None.
-- Up to 64 files of up to 256 chords each. Step jumps only reach the first 32 chords; longer files still play all the way through and show `45/78` on Step.
+- Up to 100 files of up to 256 chords each. Step jumps only reach the first 32 chords; longer files still play all the way through and show `45/78` on Step.
+
+### MIDI chord clips → progression files
+
+`tools/midi2progression.py` turns MIDI chord clips (Splice packs and the like) into `.progression` files that Chord Stage and the MPC can read:
+
+```bash
+python3 tools/midi2progression.py ~/MPC/Splice_Genre_Progressions --out converted --show
+```
+
+- **Chords:** notes that start together make a chord.
+- **Cleanup:** two-note fills are skipped, melody notes on top of a chord are dropped, repeated chords are kept once, and a loop played twice is kept once.
+- **Arpeggios:** an arpeggio clip gets one chord per bar.
+- **Key:** taken from the file name (`Trap 1 - A minor.mid` becomes `Trap 1` in A minor), or guessed from the notes; set it with `--key "A minor"`.
+- **Check it:** `--show` prints each file's chords so you can check them before copying the files to the card.
 
 ### Built-in programs
 

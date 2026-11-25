@@ -27,7 +27,7 @@
 
 namespace cs {
 
-constexpr int kMaxFiles = 64;          // "Prog File" slots 1..64
+constexpr int kMaxFiles = 100;         // "Prog File" slots 1..100 (one per 1% of the slider)
 constexpr int kMaxFileSteps = 256;
 constexpr int kMaxVoicing = 10;
 

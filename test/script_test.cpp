@@ -277,7 +277,7 @@ int main(int argc, char** argv)
     std::printf("H. Progression files from Content/Progressions (exact MPC voicings)\n");
     p.setText("Arp", "Off"); p.setText("Progression", "None"); p.setText("Mode", "Sloppy");
     p.setText("Key", "C"); p.setText("Scale", "Major");
-    expectText("Prog File slot 1", (p.e->setParameter(p.e, p.idx("Prog File"), 1.0f / 64.0f), p.display("Prog File")), "Gymnopedie No 1");
+    expectText("Prog File slot 1", (p.e->setParameter(p.e, p.idx("Prog File"), 1.0f / 100.0f), p.display("Prog File")), "Gymnopedie No 1");
     p.setText("Prog File", "Test Eb");
     render(p, 0.05);
     expectText("picking the file sets Key", p.display("Key"), "Eb");
