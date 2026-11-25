@@ -122,11 +122,11 @@ That builds `VST/chord-stage-arm32.so` and `VST/chord-stage-arm64.so` into `buil
 test/run.sh
 ```
 
-`test/run.sh` plays a scripted performance and writes `build/script.wav`. It covers Chords, Sloppy and Lock modes, Smooth voicing, the bass zone, strum timing, and arp steps on the grid while the transport plays. It also loads progression files from `test/fixture/Content/Progressions`, a stand-in for the card. It checks every chord's pitches in the audio and the Now / Next text, 66 checks in all.
+`test/run.sh` plays a scripted performance and writes `build/script.wav`. It covers Chords, Sloppy and Lock modes, Smooth voicing, the bass zone, strum timing, and arp steps on the grid while the transport plays. It also loads progression files from `test/fixture/Content/Progressions`, a stand-in for the card. It checks every chord's pitches in the audio and the Now / Next text, 75 checks in all.
 
 ## Honest notes
 
-- **Now / Next refresh.** To get the MPC to redraw it, the plugin bumps that parameter's value and tells the host it changed (`audioMasterAutomate`), at most every 30 ms and only when the text changes. This works in the simulator. Whether the MPC screen redraws right away needs checking on the hardware.
+- **Now / Next refresh.** To get the MPC to redraw it, the plugin bumps the display parameters' values and tells the host they changed (`audioMasterAutomate`), at most every 30 ms and only when the text changes. On the MPC Live III the display updates as you play.
 - **Not ported from the web app:** typing your own progressions (the MPC has no text entry), song form, the drum beat, loop recording, melody-over, the wind controller and MIDI out to other tracks.
 - **No reverb**, to keep CPU low. Put the MPC's own reverb on the track.
 - **CPU:** up to 16 voices. E.Piano and Organ are table-lookup sines. Pad and Strings use 2–3 anti-aliased saws and a filter per voice, so they cost the most. In the simulator the plugin uses well under 1% of a desktop core; expect a few percent on the Live III.
